@@ -14,7 +14,7 @@ namespace Lab
 
         public static string[][] fileTableDate = new string[File.ReadAllLines(@"C:\Users\User\source\repos\Lab-2\Lab-2\TableDate.csv").Length][];
 
-        public static string[][] RecordTheFile(string[][] arr)
+        public static string[][] RecordFile(string[][] arr)
         {
             for (int i = 0; i < arr.Length; i++)
             {
@@ -25,7 +25,7 @@ namespace Lab
 
         public static void CheckFile()
         {
-            RecordTheFile(fileTableDate);
+            RecordFile(fileTableDate);
             for (int i = 1; i < fileTableDate.Length - 1; i++)
             {
                 if (fileTableDate[0].Length < fileTableDate[i].Length)

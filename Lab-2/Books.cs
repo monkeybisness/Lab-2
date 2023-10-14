@@ -29,7 +29,7 @@ namespace Lab
 
         public static string[][] fileBooks = new string[File.ReadAllLines(@"C:\Users\User\source\repos\Lab-2\Lab-2\Books.csv").Length][];
 
-        public static string[][] RecordTheFile(string[][] arr)
+        public static string[][] RecordFile(string[][] arr)
         {
             for (int i = 0; i < arr.Length; i++)
             {
@@ -40,7 +40,7 @@ namespace Lab
 
         public static void CheckFile()
         {
-            RecordTheFile(fileBooks);
+            RecordFile(fileBooks);
             for (int i = 0; i < fileBooks.Length - 1; i++)
             {
                 if (fileBooks[0].Length < fileBooks[i].Length)
