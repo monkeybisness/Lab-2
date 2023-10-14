@@ -6,91 +6,32 @@ namespace Lab
     {
         void Initialize()
         {
-            BookData.CheckFile();
+            BookData bookData = new BookData("C:\\Users\\User\\source\\repos\\Lab-2\\Lab-2\\Books\\Books.csv");
+            bookData.CheckFile();
 
-            ReaderData.CheckFile();
+            ReaderData readerData = new ReaderData("C:\\Users\\User\\source\\repos\\Lab-2\\Lab-2\\Readers\\Readers.csv");
+            readerData.CheckFile();
 
-            TableData.CheckFile();
+            TableData tableData = new TableData("C:\\Users\\User\\source\\repos\\Lab-2\\Lab-2\\TableDate\\TableDate.csv");
+            tableData.CheckFile();
 
             List<Reader> readers = new List<Reader>();
-            for (int j = 1; j <= ReaderData.fileReaders.Length - 1; j++)
+            for (int j = 1; j <= tableData.fileTableDate.Count - 1; j++)
             {
-                if (TableData.fileTableDate[j].Length < 4)
-                {
-                    readers.Add(new Reader()
-                    {
-                        Id = Convert.ToUInt32(ReaderData.fileReaders[j][0]),
-
-                        FullName = ReaderData.fileReaders[j][1],
-
-                        ReaderTicket = Convert.ToUInt32(ReaderData.fileReaders[j][2]),
-
-                        DateCapture = new Dictionary<uint, DateTime>
-                        {
-                            { Convert.ToUInt32(TableData.fileTableDate[j][0]), Convert.ToDateTime(TableData.fileTableDate[j][2])}
-                        },
-
-                        DateReturn = new Dictionary<uint, DateTime>
-                        {
-
-                        }
-                    });
-                }
-                else
-                {
-                    readers.Add(new Reader()
-                    {
-                        Id = Convert.ToUInt32(ReaderData.fileReaders[j][0]),
-
-                        FullName = ReaderData.fileReaders[j][1],
-
-                        ReaderTicket = Convert.ToUInt32(ReaderData.fileReaders[j][2]),
-
-                        DateCapture = new Dictionary<uint, DateTime>
-                        {
-                            { Convert.ToUInt32(TableData.fileTableDate[j][0]), Convert.ToDateTime(TableData.fileTableDate[j][2])}
-                        },
-
-                        DateReturn = new Dictionary<uint, DateTime>
-                        {
-                            { Convert.ToUInt32(TableData.fileTableDate[j][0]), Convert.ToDateTime(TableData.fileTableDate[j][3])}
-                        }
-                    });
-                }
+                Reader reader = new Reader();
+                if (tableData.fileTableDate[j].Count < 4) { readers.Add(reader.ReaderAddThree(readerData, tableData, j)); }
+                else { readers.Add(reader.ReaderAddFour(readerData, tableData, j)); }
             }
 
             List<Book> books = new List<Book>();
-
-            for (int i = 1; i <= BookData.fileBooks.Length - 1; i++)
+            for (int i = 1; i <= bookData.fileBooks.Count - 1; i++)
             {
-                books.Add(new Book
-                {
-                    Id = Convert.ToUInt32(BookData.fileBooks[i][0]),
-
-                    Author = BookData.fileBooks[i][1],
-
-                    Title = BookData.fileBooks[i][2],
-
-                    PublicationYear = Convert.ToUInt32(BookData.fileBooks[i][3]),
-
-                    CabinetNumber = Convert.ToUInt32(BookData.fileBooks[i][4]),
-
-                    ShelfNumber = Convert.ToUInt32(BookData.fileBooks[i][5]),
-                });
+                Book book = new Book();
+                books.Add(book.BooksAdd(bookData, i));
             }
-            bool status = false;
             foreach (var book in books)
             {
-                foreach (var reader in readers)
-                {
-                    if (reader.DateCapture.ContainsKey(book.Id) && reader.DateReturn.ContainsKey(book.Id) == false)
-                    {
-                        Console.WriteLine($"{book.Title} {reader.FullName} {reader.DateCapture[book.Id].ToString("d")}");
-                        status = true; break;
-                    }
-                }
-                if(status == true) { status = false;  }
-                else { Console.WriteLine(book.Title); }
+                book.BookReader(book, readers, false);
             }
         }
         public static void Main(string[] args)
