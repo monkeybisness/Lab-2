@@ -20,7 +20,14 @@ namespace Lab
             {
                 Reader reader = new Reader();
                 if (tableData.fileTableDate[j].Count < 4) { readers.Add(reader.ReaderAddThree(readerData, tableData, j)); }
-                else { readers.Add(reader.ReaderAddFour(readerData, tableData, j)); }
+                else 
+                { 
+                    readers.Add(reader.ReaderAddThree(readerData, tableData, j));
+                    readers[readers.Count - 1].DateReturn = new Dictionary<uint, DateTime>
+                    {
+                        { Convert.ToUInt32(tableData.fileTableDate[j][0]), Convert.ToDateTime(tableData.fileTableDate[j][3]) }
+                    };
+                }
             }
 
             List<Book> books = new List<Book>();
