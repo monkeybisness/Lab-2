@@ -33,10 +33,7 @@ namespace Lab
                     { Convert.ToUInt32(tableData.fileTableDate[j][0]), Convert.ToDateTime(tableData.fileTableDate[j][2])}
                 },
 
-                DateReturn = new Dictionary<uint, DateTime>
-                {
-
-                }
+                DateReturn = new Dictionary<uint, DateTime> { }
             };
         }
     }
