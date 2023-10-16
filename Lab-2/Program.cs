@@ -39,7 +39,7 @@ namespace Lab
             }
             foreach (var book in books)
             {
-                book.BookIsTake(book, readers);
+                book.BookStatus(book, readers);
             }
         }
         public static void Main(string[] args)
