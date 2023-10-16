@@ -18,19 +18,19 @@ namespace Lab
 
         public Dictionary<uint, DateTime> DateReturn { get; set; }
 
-        public Reader ReaderAddThree(ReaderData readerData , TableData tableData, int j)
+        public Reader ReaderAdd(ReaderData readerData , TableData tableData, int row)
         {
             return new Reader()
             {
-                Id = Convert.ToUInt32(readerData.fileReaders[j][0]),
+                Id = Convert.ToUInt32(readerData.FileReaders[row][0]),
 
-                FullName = readerData.fileReaders[j][1],
+                FullName = readerData.FileReaders[row][1],
 
-                ReaderTicket = Convert.ToUInt32(readerData.fileReaders[j][2]),
+                ReaderTicket = Convert.ToUInt32(readerData.FileReaders[row][2]),
 
                 DateCapture = new Dictionary<uint, DateTime>
                 {
-                    { Convert.ToUInt32(tableData.fileTableDate[j][0]), Convert.ToDateTime(tableData.fileTableDate[j][2])}
+                    { Convert.ToUInt32(tableData.FileTableDate[row][0]), Convert.ToDateTime(tableData.FileTableDate[row][2])}
                 },
 
                 DateReturn = new Dictionary<uint, DateTime> { }

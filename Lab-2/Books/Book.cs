@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,37 +22,43 @@ namespace Lab
 
         public uint ShelfNumber { get; set; }
 
-        public Book BooksAdd(BookData bookData, int i)
+        public Book BooksAdd(BookData bookData, int row)
         {
             return new Book
             {
-                Id = Convert.ToUInt32(bookData.fileBooks[i][0]),
+                Id = Convert.ToUInt32(bookData.FileBooks[row][0]),
 
-                Author = bookData.fileBooks[i][1],
+                Author = bookData.FileBooks[row][1],
 
-                Title = bookData.fileBooks[i][2],
+                Title = bookData.FileBooks[row][2],
 
-                PublicationYear = Convert.ToUInt32(bookData.fileBooks[i][3]),
+                PublicationYear = Convert.ToUInt32(bookData.FileBooks[row][3]),
 
-                CabinetNumber = Convert.ToUInt32(bookData.fileBooks[i][4]),
+                CabinetNumber = Convert.ToUInt32(bookData.FileBooks[row][4]),
 
-                ShelfNumber = Convert.ToUInt32(bookData.fileBooks[i][5]),
+                ShelfNumber = Convert.ToUInt32(bookData.FileBooks[row][5]),
             };
 
         }
 
-        public void BookReader(Book book, List<Reader> readers , bool status)
+        public void BookIsTake(Book book, List<Reader> readers)
         {
-            foreach (Reader reader in readers)
+            var takeBook = false;
+            var number = 0;
+            for(int i = 0; i < readers.Count; i++)
             {
-                if (reader.DateCapture.ContainsKey(book.Id) && reader.DateReturn.ContainsKey(book.Id) == false)
+                if (readers[i].DateCapture.ContainsKey(book.Id) && readers[i].DateReturn.ContainsKey(book.Id) == false)
                 {
-                    Console.WriteLine($"{book.Title} {reader.FullName} {reader.DateCapture[book.Id].ToString("d")}");
-                    status = true; break;
+                    takeBook = true;
+                    number = i;
+                    break;
                 }
             }
-            if (status == true) { status = false; }
-            else { Console.WriteLine(book.Title); }
+            if (!takeBook){ Console.WriteLine(book.Title); }
+            else 
+            { 
+                Console.WriteLine($"{book.Title} {readers[number].FullName} {readers[number].DateCapture[book.Id].ToString("d")}"); 
+            }
         }
     }
 }
