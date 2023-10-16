@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Lab
 {
@@ -43,22 +44,16 @@ namespace Lab
 
         public void BookIsTake(Book book, List<Reader> readers)
         {
-            var takeBook = false;
-            var number = 0;
-            for(int i = 0; i < readers.Count; i++)
+            var statusBook = book.Title;
+            for (int i = 0; i < readers.Count; i++)
             {
                 if (readers[i].DateCapture.ContainsKey(book.Id) && readers[i].DateReturn.ContainsKey(book.Id) == false)
                 {
-                    takeBook = true;
-                    number = i;
+                    statusBook = $"{book.Title} {readers[i].FullName} {readers[i].DateCapture[book.Id].ToString("d")}";
                     break;
                 }
             }
-            if (!takeBook){ Console.WriteLine(book.Title); }
-            else 
-            { 
-                Console.WriteLine($"{book.Title} {readers[number].FullName} {readers[number].DateCapture[book.Id].ToString("d")}"); 
-            }
+            Console.WriteLine(statusBook);
         }
     }
 }
