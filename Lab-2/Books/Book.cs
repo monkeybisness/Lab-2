@@ -42,7 +42,7 @@ namespace Lab
 
         }
 
-        public void BookStatus(Book book, List<Reader> readers)
+        public void CheckStatusBook(Book book, List<Reader> readers)
         {
             var statusBook = book.Title;
             for (int i = 0; i < readers.Count; i++)

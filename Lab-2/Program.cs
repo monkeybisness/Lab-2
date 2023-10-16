@@ -20,7 +20,9 @@ namespace Lab
             {
                 Reader reader = new Reader();
                 if(tableData.FileTableDate[i].Count < 4) 
-                    { readers.Add(reader.ReaderAdd(readerData, tableData, i)); }
+                {
+                    readers.Add(reader.ReaderAdd(readerData, tableData, i)); 
+                }
                 else 
                 { 
                     readers.Add(reader.ReaderAdd(readerData, tableData, i));
@@ -39,7 +41,7 @@ namespace Lab
             }
             foreach (var book in books)
             {
-                book.BookStatus(book, readers);
+                book.CheckStatusBook(book, readers);
             }
         }
         public static void Main(string[] args)

@@ -8,7 +8,10 @@ namespace Lab
 {
     class TableData
     {
-        public TableData(string path, List<List<string>> fileTableDate) { Path = path; FileTableDate = fileTableDate;  }
+        public TableData(string path, List<List<string>> fileTableDate) 
+        { 
+            Path = path; FileTableDate = fileTableDate; 
+        }
 
         public string Path { get; set; }
 
